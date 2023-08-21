@@ -64,4 +64,125 @@ public class BinarySearch {
     }
 
 
+    /**
+     * <h3>二分查找平衡版</h3>
+     *
+     * @param a      待查找的升序数组
+     * @param target 待查找的目标值
+     * @return <p>找到则返回索引</p>
+     * <p>找不到则返回-1</p>
+     */
+    public static int binarySearch3(int[] a, int target) {
+        int i = 0, j = a.length;
+        while (1 < j - i) {
+            int m = (i + j) >>> 1;
+            if (target < a[m]) {
+                j = m;
+            } else {
+                i = m;
+            }
+        }
+        if (a[i] == target) {
+            return i;
+        } else {
+            return -1;
+        }
+    }
+
+
+    /**
+     * <h3>二分查找 Leftmost</h3>
+     *
+     * @param a      待查找的升序数组
+     * @param target 待查找的目标值
+     * @return <p>找到则返回最靠左索引</p>
+     * <p>找不到则返回-1</p>
+     */
+    public static int binarySearchLeftmost1(int[] a, int target) {
+        int i = 0, j = a.length - 1;
+        int candiate = -1;
+        while (i <= j) {
+            int m = (i + j) >>> 1;
+            if (target < a[m]) {
+                j = m - 1;
+            } else if (a[m] < target) {
+                i = m + 1;
+            } else {
+                //记录侯选位置
+                candiate = m;
+                j = m - 1;
+            }
+        }
+        return candiate;
+    }
+
+
+    /**
+     * <h3>二分查找 Rightmost</h3>
+     *
+     * @param a      待查找的升序数组
+     * @param target 待查找的目标值
+     * @return <p>找到则返回最靠右索引</p>
+     * <p>找不到则返回-1</p>
+     */
+    public static int binarySearchRightmost1(int[] a, int target) {
+        int i = 0, j = a.length - 1;
+        int candiate = -1;
+        while (i <= j) {
+            int m = (i + j) >>> 1;
+            if (target < a[m]) {
+                j = m - 1;
+            } else if (a[m] < target) {
+                i = m + 1;
+            } else {
+                //记录侯选位置
+                candiate = m;
+                i = m + 1;
+            }
+        }
+        return candiate;
+    }
+
+
+    /**
+     * <h3>二分查找 Leftmost</h3>
+     *
+     * @param a      待查找的升序数组
+     * @param target 待查找的目标值
+     * @return <p>返回>=target的最靠左索引</p>
+     */
+    public static int binarySearchLeftmost2(int[] a, int target) {
+        int i = 0, j = a.length - 1;
+        while (i <= j) {
+            int m = (i + j) >>> 1;
+            if (target <= a[m]) {
+                j = m - 1;
+            } else {
+                i = m + 1;
+            }
+        }
+        return i;
+    }
+
+    /**
+     * <h3>二分查找 Rightmost</h3>
+     *
+     * @param a      待查找的升序数组
+     * @param target 待查找的目标值
+     * @return <p>返回<=target的最靠右索引</p>
+     */
+    public static int binarySearchRightmost2(int[] a, int target) {
+        int i = 0, j = a.length - 1;
+        while (i <= j) {
+            int m = (i + j) >>> 1;
+            if (target < a[m]) {
+                j = m - 1;
+            } else {
+                i = m + 1;
+            }
+        }
+        return i - 1;
+    }
+
+
 }
