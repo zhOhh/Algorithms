@@ -1,4 +1,4 @@
-package main.com.zh.datastructure;
+package main.com.zh.datastructure.array;
 
 import java.util.Arrays;
 import java.util.Iterator;
