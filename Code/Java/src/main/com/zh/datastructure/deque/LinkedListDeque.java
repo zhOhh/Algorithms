@@ -9,6 +9,89 @@ import java.util.Iterator;
  */
 public class LinkedListDeque<E> implements Deque<E>, Iterable<E> {
 
+
+    @Override
+    public boolean offerFirst(E e) {
+        if (isFull()) {
+            return false;
+        }
+        Node<E> a = sentinel;
+        Node<E> b = sentinel.next;
+        Node<E> added = new Node<>(a, e, b);
+        a.next = added;
+        b.prev = added;
+        size++;
+        return true;
+    }
+
+    @Override
+    public boolean offerLast(E e) {
+        if (isFull()) {
+            return false;
+        }
+        Node<E> a = sentinel.prev;
+        Node<E> b = sentinel;
+        Node<E> added = new Node<>(a, e, b);
+        a.next = added;
+        b.prev = added;
+        size++;
+        return true;
+    }
+
+    @Override
+    public E pollFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+        Node<E> a = sentinel;
+        Node<E> removed = a.next;
+        Node<E> b = removed.next;
+        a.next = b;
+        b.prev = a;
+        size--;
+        return removed.value;
+    }
+
+    @Override
+    public E pollLast() {
+        if (isEmpty()) {
+            return null;
+        }
+        Node<E> b = sentinel;
+        Node<E> removed = sentinel.prev;
+        Node<E> a = removed.prev;
+        a.next=b;
+        b.prev = a;
+        size--;
+        return removed.value;
+    }
+
+    @Override
+    public E peekFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+        return sentinel.next.value;
+    }
+
+    @Override
+    public E peekLast() {
+        if (isEmpty()) {
+            return null;
+        }
+        return sentinel.prev.value;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public boolean isFull() {
+        return size == capacity;
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
@@ -26,46 +109,6 @@ public class LinkedListDeque<E> implements Deque<E>, Iterable<E> {
                 return value;
             }
         };
-    }
-
-    @Override
-    public boolean offerFirst(E e) {
-        return false;
-    }
-
-    @Override
-    public boolean offerLast(E e) {
-        return false;
-    }
-
-    @Override
-    public E pollFirst() {
-        return null;
-    }
-
-    @Override
-    public E pollLast() {
-        return null;
-    }
-
-    @Override
-    public E peekFirst() {
-        return null;
-    }
-
-    @Override
-    public E peekLast() {
-        return null;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public boolean isFull() {
-        return false;
     }
 
     static class Node<E> {
